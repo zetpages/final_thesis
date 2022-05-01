@@ -1,7 +1,8 @@
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const {Student, Teacher, Group, Subscription, StudentGroup, TeacherStudent, Course, Level, Branch, Room, StudentStatus,
-    Gender, RegularClasses, Admin, Discount, DiscountType, CourseType, SingleClass
+    Gender, RegularClasses, Admin, Discount, DiscountType, CourseType, SingleClass, Center, Role, AdminRole, StudentRole,
+    User
 } = require('../models/models')
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid')
@@ -48,6 +49,17 @@ class StudentController {
             let fileName = uuid.v4() + ".jpg"
             img.mv(path.resolve(__dirname, '..', 'static', fileName));
 
+            const centerDetails = await Center.findOne(
+                {
+                    where: {adminId: adminId}
+                    // include: [{
+                    //     model: Admin,
+                    //     include: {
+                    //         model: Center
+                    //     }
+                    // }],
+                });
+
             const student = await Student.create({
                 email,
                 name,
@@ -64,19 +76,43 @@ class StudentController {
                 img: fileName,
                 birthday,
                 discountId,
-                balance
+                balance,
+                centerId: centerDetails.id
             });
 
 
-
-            const studentGroup = await StudentGroup.create({groupId, studentId: student.id});
-            const studentTeacher = await TeacherStudent.create({teacherId, studentId: student.id});
+            await User.create({email, password: hashPassword});
+            await StudentGroup.create({groupId, studentId: student.id});
+            await TeacherStudent.create({teacherId, studentId: student.id});
 
             // const studentGroup = await Student.create(StudentGroup);
+            const role = await Role.findOrCreate({
+                where: {name: 'STUDENT', centerId: centerDetails.id},
+                // defaults: {centerId: centerDetails.id}
+            });
+            const roleDetail = await Role.findOne({
+                where: {name: 'STUDENT'}
+            })
+
+            // const role = await Role.create({
+            //     name: 'STUDENT',
+            //     centerId: student.id
+            // });
+
+            await StudentRole.create({
+                studentId: student.id,
+                roleId: roleDetail.id
+            });
+            const adminDetails = await Admin.findOne({
+                where: {id: adminId}
+            })
 
 
-            const token = generateJwt(student.id, student.email, student.name);
-            return res.json(student);
+            console.log("---------______---------"+adminDetails)
+
+            const token = generateJwt(student.id, student.email);
+            return res.json(centerDetails);
+            // return res.json({token});
 
         } catch (e) {
             next(ApiError.badRequest(e.message));
@@ -93,12 +129,12 @@ class StudentController {
         if (!comparePassword) {
             return next(ApiError.internal('Указан неверный пароль'))
         }
-        const token = generateJwt(student.id, student.email, student.role)
+        const token = generateJwt(student.id, student.email)
         return res.json({token})
     }
 
     async check(req, res) {
-        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        const token = generateJwt(req.user.id, req.user.email)
         return res.json({token})
     }
 

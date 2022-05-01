@@ -1,6 +1,6 @@
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
-const {Admin, Teacher, Gender, Center} = require('../models/models')
+const {Admin, Teacher, Gender, Center, Role, AdminRole, User} = require('../models/models')
 const jwt = require('jsonwebtoken');
 
 const generateJwt = (id, email) => {
@@ -22,8 +22,25 @@ class AdminController {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const admin = await Admin.create({email, name, password: hashPassword})
-        const token = generateJwt(admin.id, admin.email )
+        const admin = await Admin.create({email, name, password: hashPassword});
+        await User.create({email, password: hashPassword});
+        const center = await Center.create({adminId: admin.id});
+        const token = generateJwt(admin.id, admin.email);
+
+        const role = await Role.findOrCreate({
+            where: {name: 'ADMIN', centerId: center.id},
+            // defaults: {centerId: center.id}
+        });
+
+        const roleDetail = await Role.findOne({
+            where: {name: 'ADMIN'}
+        })
+
+        await AdminRole.create({
+            adminId: admin.id,
+            roleId: roleDetail.id
+        });
+
         return res.json({token})
     }
 
@@ -41,15 +58,18 @@ class AdminController {
         return res.json({token})
     }
 
-    async check(req, res, next) {
-        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+    async check(req, res) {
+        const token = generateJwt(req.user.id, req.user.email)
         return res.json({token})
     }
 
     async getAll(req, res) {
         const admin = await Admin.findAll({include: [
             {model: Teacher},
-            {model: Gender}
+            {model: Gender},
+            {model: Center},
+            {model: AdminRole,
+            include: {model: Role}}
         ]});
         res.json(admin);
     }

@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f4f57163-d371-4171-a0a6-601f89d91504" name="Changes" comment="" />
+    <list default="true" id="f4f57163-d371-4171-a0a6-601f89d91504" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/userController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/final_thesis" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/middleware/checkOwner.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/userRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/adminController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/adminController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/studentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/studentController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/authMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/checkRoleMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/checkRoleMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/models.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/models.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/studentRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/studentRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/teacherRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/teacherRouter.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +38,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="26u6oLTjue3t9oDNQIUwJ2IyO76" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -36,7 +56,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="16.14.2" />
     <property name="javascript.nodejs.core.library.typings.version" value="16.11.26" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/routes" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.scopes" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -44,11 +64,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Desktop\pr_uoku\thesis_server-master\routes" />
+      <recent name="C:\Users\Admin\Desktop\pr_uoku\thesis_server-master\controllers" />
       <recent name="C:\Users\Admin\Desktop\pr_uoku\thesis_server-master" />
       <recent name="C:\Users\Admin\Desktop\DIPLOMA\UOKU\server_progress\controllers" />
       <recent name="C:\Users\Admin\Desktop\DIPLOMA\UOKU\server_progress\routes" />
-      <recent name="C:\Users\Admin\Desktop\DIPLOMA\UOKU\server\routes" />
-      <recent name="C:\Users\Admin\Desktop\DIPLOMA\UOKU\server\controllers" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -94,7 +114,9 @@
       <workItem from="1650226480456" duration="3979000" />
       <workItem from="1650383614969" duration="649000" />
       <workItem from="1650458797838" duration="6129000" />
-      <workItem from="1651154301067" duration="9517000" />
+      <workItem from="1651154301067" duration="12912000" />
+      <workItem from="1651301717444" duration="19086000" />
+      <workItem from="1651395044036" duration="4155000" />
     </task>
     <servers />
   </component>

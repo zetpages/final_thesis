@@ -1,6 +1,11 @@
 const sequelize = require('../db');
 const {DataTypes} = require('sequelize');
 
+const User = sequelize.define('user', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    email: {type: DataTypes.STRING, unique: true },
+    password: {type: DataTypes.STRING}
+});
 
 const Admin = sequelize.define('admin', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -60,7 +65,7 @@ const Lead = sequelize.define('lead', {
 
 const Role = sequelize.define('role', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: { type:  DataTypes.STRING, unique: true, allowNull: false }
+    name: { type:  DataTypes.STRING, allowNull: false }
 });
 
 const LeadStatus = sequelize.define('lead_status', {
@@ -223,6 +228,18 @@ const StudentRole = sequelize.define('student_role',{
 const TeacherRole = sequelize.define('teacher_role',{
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
+
+User.hasMany(Admin);
+Admin.belongsTo(User);
+
+User.hasMany(Manager);
+Manager.belongsTo(User);
+
+User.hasMany(Teacher);
+Teacher.belongsTo(User);
+
+User.hasMany(Student);
+Student.belongsTo(User);
 
 
 Admin.hasOne(Center);
@@ -646,5 +663,6 @@ module.exports = {
     AdminRole,
     ManagerRole,
     StudentRole,
-    TeacherRole
+    TeacherRole,
+    User
 }
