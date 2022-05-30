@@ -11,9 +11,9 @@ const Admin = sequelize.define('admin', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     email: {type: DataTypes.STRING, unique: true },
     password: {type: DataTypes.STRING},
-    name: {type: DataTypes.STRING, allowNull: false, defaultValue: 'Administrator'},
-    img: {type: DataTypes.STRING, allowNull: false, defaultValue: ''},
-    phone: {type: DataTypes.STRING, allowNull: false, defaultValue: 'set phone'}
+    name: {type: DataTypes.STRING, defaultValue: 'Administrator'},
+    img: {type: DataTypes.STRING, defaultValue: ''},
+    phone: {type: DataTypes.STRING, defaultValue: 'set phone'}
 });
 
 const Manager = sequelize.define('manager', {
@@ -102,14 +102,16 @@ const Subscription = sequelize.define('subscription', {
 
 const Billing = sequelize.define('billing', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: { type: DataTypes.STRING, unique: true, allowNull: false }
+    name: { type: DataTypes.STRING, unique: true, allowNull: false },
+    description: { type: DataTypes.STRING, defaultValue: 'Описание не задано' },
 });
 
 const Group = sequelize.define('group', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type:  DataTypes.STRING, unique: true, allowNull: false },
     limit: { type:  DataTypes.INTEGER, allowNull: false, defaultValue: 30 },
-    note: {type: DataTypes.STRING, defaultValue: 'Описание не задано'}
+    note: {type: DataTypes.STRING, defaultValue: 'Описание не задано'},
+    color: {type: DataTypes.STRING, defaultValue: '#233044'},
 });
 
 const RegularClasses = sequelize.define('regular_classes', { // temp leave than modify and toggle with Group and Course and Level
@@ -146,12 +148,14 @@ const SingleClass = sequelize.define('single_class', {
 
 const GroupStatus = sequelize.define('group_status', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: { type:  DataTypes.STRING, unique: true, allowNull: false }
+    name: { type:  DataTypes.STRING, unique: true, allowNull: false },
+    description: { type: DataTypes.STRING, defaultValue: 'Описание не задано' },
 });
 
 const StudentStatus = sequelize.define('student_status', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: { type:  DataTypes.STRING, unique: true, allowNull: false }
+    name: { type:  DataTypes.STRING, unique: true, allowNull: false },
+    description: { type: DataTypes.STRING, defaultValue: 'Описание не задано' },
 });
 
 const Branch = sequelize.define('branch', {
@@ -285,9 +289,10 @@ Center.hasMany(StudentStatus);
 StudentStatus.belongsTo(Center);
 Center.hasMany(Course);
 Course.belongsTo(Center);
+Center.hasMany(CourseType);
+CourseType.belongsTo(Center);
 Center.hasMany(SingleClass);
 SingleClass.belongsTo(Center);
-
 
 
 Admin.belongsToMany(Role, { through: AdminRole });
@@ -340,13 +345,15 @@ Student.belongsToMany(Teacher, {through: TeacherStudent });
 Teacher.belongsToMany(RegularClasses, {through: TeacherClasses });
 RegularClasses.belongsToMany(Teacher, {through: TeacherClasses });
 
-
-
-
+Group.belongsToMany(RegularClasses, {through: GroupClasses});
+RegularClasses.belongsToMany(Group, {through: GroupClasses});
+Group.hasMany(GroupClasses);
+GroupClasses.belongsTo(Group);
+RegularClasses.hasMany(GroupClasses);
+GroupClasses.belongsTo(RegularClasses);
 
 Student.belongsToMany(Group, {through: StudentGroup });
 Group.belongsToMany(Student, {through: StudentGroup });
-
 Student.hasMany(StudentGroup);
 StudentGroup.belongsTo(Student);
 Group.hasMany(StudentGroup);
@@ -354,7 +361,6 @@ StudentGroup.belongsTo(Group);
 
 Lead.belongsToMany(Group, {through: LeadGroup });
 Group.belongsToMany(Lead, {through: LeadGroup });
-
 Lead.hasMany(LeadGroup);
 LeadGroup.belongsTo(Lead);
 Group.hasMany(LeadGroup);
@@ -373,22 +379,17 @@ Branch.hasMany(Room);
 Room.belongsTo(Branch, {foreignKey: 'branchId'});
 
 
-Group.belongsToMany(RegularClasses, {through: GroupClasses});
-RegularClasses.belongsToMany(Group, {through: GroupClasses});
-Group.hasMany(GroupClasses);
-GroupClasses.belongsTo(Group);
-RegularClasses.hasMany(GroupClasses);
-GroupClasses.belongsTo(RegularClasses);
-
 Room.hasMany(RegularClasses);
 RegularClasses.belongsTo(Room);
 
 Course.hasMany(RegularClasses);
 RegularClasses.belongsTo(Course);
 
+CourseType.hasMany(Course);
+Course.belongsTo(CourseType);
+
 CourseType.hasMany(RegularClasses);
 RegularClasses.belongsTo(CourseType);
-
 
 Level.hasMany(Group);
 Group.belongsTo(Level);

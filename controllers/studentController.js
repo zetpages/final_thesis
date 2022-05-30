@@ -60,6 +60,8 @@ class StudentController {
                     // }],
                 });
 
+            const user = await User.create({email, password: hashPassword});
+
             const student = await Student.create({
                 email,
                 name,
@@ -77,11 +79,11 @@ class StudentController {
                 birthday,
                 discountId,
                 balance,
-                centerId: centerDetails.id
+                centerId: centerDetails.id,
+                userId: user.id
             });
 
 
-            await User.create({email, password: hashPassword});
             await StudentGroup.create({groupId, studentId: student.id});
             await TeacherStudent.create({teacherId, studentId: student.id});
 

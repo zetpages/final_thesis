@@ -13,6 +13,8 @@ const studentStatusRouter = require('./studentStatusRouter');
 const regularClassesRouter = require('./regularClassesRouter');
 const genderRouter = require('./genderRouter');
 const userRouter = require('./userRouter');
+const roomRouter = require('./roomRouter');
+const branchRouter = require('./branchRouter');
 
 
 router.use('/admin', adminRouter);
@@ -28,6 +30,8 @@ router.use('/student-status', studentStatusRouter);
 router.use('/regular-classes', regularClassesRouter);
 router.use('/gender', genderRouter);
 router.use('/user', userRouter);
+router.use('/room', roomRouter);
+router.use('/branch', branchRouter);
 
 
 module.exports = router;

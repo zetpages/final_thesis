@@ -1,6 +1,8 @@
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
-const {Admin, Teacher, Gender, Center, Role, AdminRole, User} = require('../models/models')
+const {Admin, Teacher, Gender, Center, Role, AdminRole, User, Student, Group, Branch, GroupStatus, Level, Room,
+    RegularClasses, Course, Billing, Discount, DiscountType, CourseType, StudentStatus, Subscription
+} = require('../models/models')
 const jwt = require('jsonwebtoken');
 
 const generateJwt = (id, email) => {
@@ -22,8 +24,9 @@ class AdminController {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const admin = await Admin.create({email, name, password: hashPassword});
-        await User.create({email, password: hashPassword});
+        const user = await User.create({email, password: hashPassword});
+        const admin = await Admin.create({email, name, password: hashPassword, userId: user.id});
+
         const center = await Center.create({adminId: admin.id});
         const token = generateJwt(admin.id, admin.email);
 
@@ -67,7 +70,31 @@ class AdminController {
         const admin = await Admin.findAll({include: [
             {model: Teacher},
             {model: Gender},
-            {model: Center},
+            {model: Center, include: [
+                    {model: Student},
+                    {model: Room, include: {model: Branch}},
+                    {model: Billing},
+                    // {model: Level, include: {model: Group}},
+                    // {model: Discount, include: {model: DiscountType}},
+                    // {model: DiscountType},
+                    // {model: Course, include: {model: CourseType}},
+                    // {model: CourseType},
+                    // {model: GroupStatus, include: {model: Group}},
+                    // {model: StudentStatus, include: {model: Student}},
+                    // {model: Subscription, include: {model: Billing}},
+                    {model: Branch, include: {model: Room}},
+                    {model: Group, include: [
+                            {model: Branch, include: {model: Room}},
+                            {model: GroupStatus},
+                            {model: Level},
+                            {model: Teacher},
+                            {model: Student},
+                            {model: RegularClasses, include: [
+                                    {model: Course},
+                                    {model: Room},
+                                ]},
+                        ]},
+                ]},
             {model: AdminRole,
             include: {model: Role}}
         ]});
@@ -76,10 +103,16 @@ class AdminController {
 
     async getOne(req, res) {
         const {id} = req.params
-        const admin = await Admin.findOne({where: {id}}, {include: Gender})
+        const admin = await Admin.findOne({where: {id}}, {include: [
+                {model: Teacher},
+                {model: Gender},
+                {model: Center,
+                    include: {model: Student}},
+                {model: AdminRole,
+                    include: {model: Role}}
+            ]})
         return res.json(admin)
     }
 }
-
 
 module.exports = new AdminController()
