@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4f57163-d371-4171-a0a6-601f89d91504" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/branchController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/roomController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/branchRouter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/roomRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/adminController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/adminController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/groupController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/groupController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/studentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/studentController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final_thesis" beforeDir="false" afterPath="$PROJECT_DIR$/final_thesis" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/final_thesis/controllers/studentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/final_thesis/controllers/studentController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/models.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/models.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/groupRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/groupRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +110,7 @@
       <workItem from="1653225472572" duration="1284000" />
       <workItem from="1653400739237" duration="10347000" />
       <workItem from="1653681612990" duration="8004000" />
-      <workItem from="1653842912530" duration="20585000" />
+      <workItem from="1653842912530" duration="23047000" />
     </task>
     <servers />
   </component>
