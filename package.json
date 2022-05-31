@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --max_old_space_size=8192 --optimize_for_size --stack_size=4096 index.js"
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",

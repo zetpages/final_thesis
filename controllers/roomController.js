@@ -1,5 +1,6 @@
 const { Room} = require('../models/models');
 const ApiError = require('../error/ApiError');
+const {Student} = require("../final_thesis/models/models");
 
 class RoomController {
     async create(req, res, next) {
@@ -16,6 +17,20 @@ class RoomController {
     async getAll(req, res) {
         let room = await Room.findAll();
         return res.json(room);
+    }
+
+
+    async deleteOne(req, res, next) {
+        Room.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).then(count => {
+            if (!count) {
+                return res.status(404).send({error: 'No room found'});
+            }
+            res.status(204).send();
+        }).catch(next);
     }
 }
 

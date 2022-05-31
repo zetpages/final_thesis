@@ -9,8 +9,8 @@ class RegularClassesController {
 
     async create(req, res, next) {
         try {
-            let { name, scheduleStart, duration, scheduleEnd, weekDays, topic, courseId, roomId, courseTypeId, periodStart, periodEnd } = req.body;
-            const regularClasses = await RegularClasses.create({ name, duration, periodStart, scheduleStart, scheduleEnd, weekDays, topic, courseId, roomId, courseTypeId, periodEnd });
+            let { name, scheduleStart, duration, scheduleEnd, weekDays, topic, courseId, roomId, courseTypeId, periodStart, periodEnd, centerId } = req.body;
+            const regularClasses = await RegularClasses.create({ name, duration, periodStart, scheduleStart, scheduleEnd, weekDays, topic, courseId, roomId, courseTypeId, periodEnd, centerId });
 
             function parseDate(input) {
                 let parts = input.split('-');
@@ -44,7 +44,8 @@ class RegularClassesController {
                             topicSingle: topic,
                             courseId: courseId,
                             roomId: roomId,
-                            courseTypeId: courseTypeId
+                            courseTypeId: courseTypeId,
+                            centerId: centerId
                         });
                     }
                     dateObj1.setDate(dateObj1.getDate() + 1);
