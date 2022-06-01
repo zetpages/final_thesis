@@ -74,13 +74,13 @@ class AdminController {
                     {model: Student},
                     {model: Room, include: {model: Branch}},
                     {model: Billing},
-                    {model: Level, include: {model: Group}},
+                    {model: Level, include: {model: Group}, separate: true},
                     {model: Discount, include: {model: DiscountType}},
                     {model: DiscountType},
                     {model: Course, include: {model: CourseType}},
                     {model: CourseType},
-                    {model: GroupStatus, include: {model: Group}},
-                    {model: StudentStatus, include: {model: Student}},
+                    {model: GroupStatus, include: {model: Group}, separate: true},
+                    {model: StudentStatus, include: {model: Student}, separate: true},
                     {model: Subscription, include: {model: Billing}},
                     {model: Branch, include: {model: Room}, separate: true},
                     {model: Group, include: [
@@ -114,5 +114,6 @@ class AdminController {
         return res.json(admin)
     }
 }
+
 
 module.exports = new AdminController()

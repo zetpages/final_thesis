@@ -1,4 +1,4 @@
-const { RegularClasses, Room, Course, CourseType, SingleClass, Group} = require('../models/models');
+const { RegularClasses, Room, Course, CourseType, SingleClass, Group, Student, Branch} = require('../models/models');
 const ApiError = require('../error/ApiError');
 const sequelize = require("sequelize");
 // const {Transaction} = require("sequelize/types");
@@ -84,7 +84,16 @@ class RegularClassesController {
                     { model: Room },
                     { model: Course },
                     { model: CourseType },
-                    { model: SingleClass, include: [{model: Course}]}
+                    {
+                        model: SingleClass,
+                        include: [
+                            { model: CourseType },
+                            { model: Course },
+                            { model: Room, include: {model: Branch} }
+                        ]
+                    },
+                    { model: Group, include: {model: Student}}
+
                     // { model: Group }
                 ]
         });
